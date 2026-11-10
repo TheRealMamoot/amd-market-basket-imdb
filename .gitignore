@@ -71,3 +71,5 @@ kaggle.json
 /report/**/*.run.xml
 /report/**/*.synctex.gz
 /report/**/*.toc
+
+/tests
