@@ -1,0 +1,73 @@
+# macOS and local editor settings
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local AI assistant instructions, notes, and configuration
+[Aa][Gg][Ee][Nn][Tt][Ss].md
+[Aa][Gg][Ee][Nn][Tt][Ss].override.md
+[Cc][Ll][Aa][Uu][Dd][Ee].md
+[Cc][Ll][Aa][Uu][Dd][Ee].local.md
+[Gg][Ee][Mm][Ii][Nn][Ii].md
+SKILL.md
+AI_*.md
+ai-*.md
+.agents/
+.claude/
+.codex/
+.cursor/
+.github/copilot-instructions.md
+.github/instructions/
+.github/prompts/
+.github/agents/
+
+# Python environments, caches, and build artifacts
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local credentials and environment variables
+.env
+.env.*
+!.env.example
+kaggle.json
+.kaggle/
+
+# Downloaded and generated local data
+/data/
+/imdb_top_1000.csv
+/imdb-dataset-of-top-1000-movies-and-tv-shows.zip
+
+# Spark local artifacts
+/spark-warehouse/
+/metastore_db/
+/derby.log
+
+# LaTeX intermediate files; keep report sources and final PDFs trackable
+/report/**/*.aux
+/report/**/*.bbl
+/report/**/*.bcf
+/report/**/*.blg
+/report/**/*.fdb_latexmk
+/report/**/*.fls
+/report/**/*.log
+/report/**/*.out
+/report/**/*.run.xml
+/report/**/*.synctex.gz
+/report/**/*.toc
