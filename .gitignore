@@ -51,6 +51,7 @@ kaggle.json
 
 # Downloaded and generated local data
 /data/
+/results/
 /imdb_top_1000.csv
 /imdb-dataset-of-top-1000-movies-and-tv-shows.zip
 
