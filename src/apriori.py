@@ -45,11 +45,15 @@ def generate_candidates(frequent, size):
 def count_candidates(baskets, candidates, min_support):
     counts = Counter()
 
+    if not candidates:
+        return {}
+
+    size = len(next(iter(candidates)))
+
     for basket in baskets:
-        basket_set = set(basket)
-        for candidate in candidates:
-            if basket_set.issuperset(candidate):
-                counts[candidate] += 1
+        for group in combinations(basket, size):
+            if group in candidates:
+                counts[group] += 1
 
     frequent = {}
     for candidate, count in counts.items():
