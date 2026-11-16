@@ -54,6 +54,9 @@ kaggle.json
 /results/
 /imdb_top_1000.csv
 /imdb-dataset-of-top-1000-movies-and-tv-shows.zip
+/tests
+/reports
+/research_notes
 
 # Spark local artifacts
 /spark-warehouse/
@@ -72,5 +75,3 @@ kaggle.json
 /report/**/*.run.xml
 /report/**/*.synctex.gz
 /report/**/*.toc
-
-/tests
