@@ -44,7 +44,7 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
     )
     parser.add_argument(
         "--algorithm",
-        choices=("apriori", "exhaustive"),
+        choices=("apriori", "apriori-optimized", "exhaustive"),
         default="apriori",
         help="Mining algorithm (default: apriori).",
     )

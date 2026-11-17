@@ -1,4 +1,5 @@
 import csv
+from functools import partial
 from pathlib import Path
 from time import perf_counter
 
@@ -17,7 +18,11 @@ def run_experiments(baskets, support_values, repeats=3):
         if support < 1:
             raise ValueError("Minimum support must be at least 1.")
 
-    algorithms = [("exhaustive", count_exhaustive), ("apriori", apriori)]
+    algorithms = [
+        ("exhaustive", count_exhaustive),
+        ("apriori", apriori),
+        ("apriori_optimized", partial(apriori, optimized=True)),
+    ]
     measurements = []
 
     for support in support_values:
@@ -45,10 +50,12 @@ def run_experiments(baskets, support_values, repeats=3):
                     }
                 )
 
-            if outputs["exhaustive"] != outputs["apriori"]:
-                raise RuntimeError(
-                    f"Algorithms disagree at support {support}, repeat {repeat}."
-                )
+            for name, result in outputs.items():
+                if result != outputs["exhaustive"]:
+                    raise RuntimeError(
+                        f"{name} disagrees with exhaustive counting at support "
+                        f"{support}, repeat {repeat}."
+                    )
 
             measurements.extend(current_measurements)
             print(f"Support {support}, repeat {repeat}/{repeats}: results match.")

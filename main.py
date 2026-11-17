@@ -49,6 +49,8 @@ def main() -> None:
     min_support = args.min_support * args.copies
     if args.algorithm == "apriori":
         frequent_itemsets = apriori(baskets, min_support)
+    elif args.algorithm == "apriori-optimized":
+        frequent_itemsets = apriori(baskets, min_support, optimized=True)
     else:
         frequent_itemsets = count_exhaustive(baskets, min_support)
     print(f"Found {len(frequent_itemsets)} frequent itemsets.")

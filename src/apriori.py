@@ -42,7 +42,60 @@ def generate_candidates(frequent, size):
     return candidates
 
 
-def count_candidates(baskets, candidates, min_support):
+def generate_candidates_by_prefix(frequent, size):
+    previous_set = set(frequent)
+    groups_by_prefix = {}
+    for group in sorted(frequent):
+        groups_by_prefix.setdefault(group[:-1], []).append(group)
+
+    candidates = set()
+    for members in groups_by_prefix.values():
+        for left, right in combinations(members, 2):
+            candidate = left + (right[-1],)
+
+            keep = True
+            for subset in combinations(candidate, size - 1):
+                if subset not in previous_set:
+                    keep = False
+                    break
+
+            if keep:
+                candidates.add(candidate)
+
+    return candidates
+
+
+def frequent_actors(frequent):
+    actors = set()
+    for group in frequent:
+        actors.update(group)
+    return actors
+
+
+def trim_basket(basket, actors):
+    kept = []
+    for actor in basket:
+        if actor in actors:
+            kept.append(actor)
+    return kept
+
+
+def count_frequent_pairs(baskets, actors, min_support):
+    counts = Counter()
+
+    for basket in baskets:
+        for pair in combinations(trim_basket(basket, actors), 2):
+            counts[pair] += 1
+
+    frequent = {}
+    for pair, count in counts.items():
+        if count >= min_support:
+            frequent[pair] = count
+
+    return frequent
+
+
+def count_candidates(baskets, candidates, min_support, actors=None):
     counts = Counter()
 
     if not candidates:
@@ -51,6 +104,8 @@ def count_candidates(baskets, candidates, min_support):
     size = len(next(iter(candidates)))
 
     for basket in baskets:
+        if actors is not None:
+            basket = trim_basket(basket, actors)
         for group in combinations(basket, size):
             if group in candidates:
                 counts[group] += 1
@@ -64,7 +119,7 @@ def count_candidates(baskets, candidates, min_support):
 
 
 def apriori(
-    baskets: list[tuple[str, ...]], min_support: int
+    baskets: list[tuple[str, ...]], min_support: int, optimized: bool = False
 ) -> dict[tuple[str, ...], int]:
     if min_support < 1:
         raise ValueError("Minimum support must be at least 1.")
@@ -78,11 +133,21 @@ def apriori(
         largest_basket = max(largest_basket, len(basket))
 
     while frequent and size <= largest_basket:
-        candidates = generate_candidates(frequent, size)
-        if not candidates:
-            break
+        if optimized:
+            actors = frequent_actors(frequent)
+            if size == 2:
+                frequent = count_frequent_pairs(baskets, actors, min_support)
+            else:
+                candidates = generate_candidates_by_prefix(frequent, size)
+                if not candidates:
+                    break
+                frequent = count_candidates(baskets, candidates, min_support, actors)
+        else:
+            candidates = generate_candidates(frequent, size)
+            if not candidates:
+                break
+            frequent = count_candidates(baskets, candidates, min_support)
 
-        frequent = count_candidates(baskets, candidates, min_support)
         results.update(frequent)
         size += 1
 
