@@ -92,7 +92,12 @@ def count_frequent_pairs(baskets, actors, min_support):
         if count >= min_support:
             frequent[pair] = count
 
-    return frequent
+    return frequent, len(counts)
+
+
+def record_counters(stats, size, counters):
+    if stats is not None:
+        stats.setdefault("counters", {})[size] = counters
 
 
 def count_candidates(baskets, candidates, min_support, actors=None):
@@ -119,7 +124,10 @@ def count_candidates(baskets, candidates, min_support, actors=None):
 
 
 def apriori(
-    baskets: list[tuple[str, ...]], min_support: int, optimized: bool = False
+    baskets: list[tuple[str, ...]],
+    min_support: int,
+    optimized: bool = False,
+    stats: dict | None = None,
 ) -> dict[tuple[str, ...], int]:
     if min_support < 1:
         raise ValueError("Minimum support must be at least 1.")
@@ -136,16 +144,19 @@ def apriori(
         if optimized:
             actors = frequent_actors(frequent)
             if size == 2:
-                frequent = count_frequent_pairs(baskets, actors, min_support)
+                frequent, counted = count_frequent_pairs(baskets, actors, min_support)
+                record_counters(stats, size, counted)
             else:
                 candidates = generate_candidates_by_prefix(frequent, size)
                 if not candidates:
                     break
+                record_counters(stats, size, len(candidates))
                 frequent = count_candidates(baskets, candidates, min_support, actors)
         else:
             candidates = generate_candidates(frequent, size)
             if not candidates:
                 break
+            record_counters(stats, size, len(candidates))
             frequent = count_candidates(baskets, candidates, min_support)
 
         results.update(frequent)

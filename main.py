@@ -7,6 +7,7 @@ from src.data import download_dataset
 from src.exhaustive import count_exhaustive
 from src.experiments import run_experiments, run_scaling_experiments, save_results
 from src.parser import parse_args
+from src.pcy import pcy
 from src.preprocessing import build_baskets, inspect_actors, load_movies
 from src.stacking import augment_baskets, augmented_support
 
@@ -27,6 +28,7 @@ def main() -> None:
             args.repeats,
             args.augmentation,
             args.variants,
+            args.buckets,
         )
         path = RESULTS_DIR / f"scaling_{args.augmentation}.csv"
         results_path = save_results(measurements, path)
@@ -45,7 +47,9 @@ def main() -> None:
         supports = []
         for support in args.supports:
             supports.append(augmented_support(support, args.copies, args.augmentation))
-        measurements = run_experiments(baskets, supports, args.repeats, args.variants)
+        measurements = run_experiments(
+            baskets, supports, args.repeats, args.variants, args.buckets
+        )
         for row in measurements:
             row["augmentation"] = args.augmentation
             row["copies"] = args.copies
@@ -64,12 +68,19 @@ def main() -> None:
         return
 
     min_support = augmented_support(args.min_support, args.copies, args.augmentation)
+    stats = {}
     if args.algorithm == "apriori":
-        frequent_itemsets = apriori(baskets, min_support)
+        frequent_itemsets = apriori(baskets, min_support, stats=stats)
     elif args.algorithm == "apriori-optimized":
-        frequent_itemsets = apriori(baskets, min_support, optimized=True)
+        frequent_itemsets = apriori(baskets, min_support, optimized=True, stats=stats)
+    elif args.algorithm == "pcy":
+        frequent_itemsets = pcy(baskets, min_support, args.buckets[0], stats=stats)
     else:
         frequent_itemsets = count_exhaustive(baskets, min_support)
+    if stats:
+        print(f"Counters per itemset size: {stats.get('counters', {})}")
+    if "frequent_buckets" in stats:
+        print(f"Frequent buckets: {stats['frequent_buckets']} of {stats['buckets']}")
     print(f"Found {len(frequent_itemsets)} frequent itemsets.")
     print("Ten most frequent itemsets:")
     pprint(Counter(frequent_itemsets).most_common(10))

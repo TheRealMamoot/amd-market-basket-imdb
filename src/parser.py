@@ -20,11 +20,19 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
     )
     parser.add_argument(
         "--variants",
-        choices=("apriori", "apriori_optimized"),
+        choices=("apriori", "apriori_optimized", "pcy"),
         nargs="+",
-        default=["apriori", "apriori_optimized"],
+        default=["apriori", "apriori_optimized", "pcy"],
         help="A-Priori variants compared with exhaustive counting in experiments "
-        "and scaling (default: apriori apriori_optimized).",
+        "and scaling (default: apriori apriori_optimized pcy).",
+    )
+    parser.add_argument(
+        "--buckets",
+        type=int,
+        nargs="+",
+        default=[100_000],
+        help="PCY hash buckets; experiments run PCY once per value, single runs "
+        "use one value (default: 100000).",
     )
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument(
@@ -60,7 +68,7 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
     )
     parser.add_argument(
         "--algorithm",
-        choices=("apriori", "apriori-optimized", "exhaustive"),
+        choices=("apriori", "apriori-optimized", "pcy", "exhaustive"),
         default="apriori",
         help="Mining algorithm (default: apriori).",
     )
@@ -77,6 +85,12 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
     if args.copies < 1:
         parser.error("--copies must be at least 1.")
     args.variants = list(dict.fromkeys(args.variants))
+    args.buckets = list(dict.fromkeys(args.buckets))
+    if any(num_buckets < 1 for num_buckets in args.buckets):
+        parser.error("--buckets values must be at least 1.")
+    if args.algorithm == "pcy" and len(args.buckets) > 1:
+        if not (args.experiment or args.scaling):
+            parser.error("A single PCY run takes one --buckets value.")
     if any(copies < 1 for copies in args.copy_counts):
         parser.error("--copy-counts values must be at least 1.")
     if args.min_support < 1:

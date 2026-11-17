@@ -6,6 +6,7 @@ from time import perf_counter
 from src.apriori import apriori
 from src.config import RESULTS_DIR
 from src.exhaustive import count_exhaustive
+from src.pcy import DEFAULT_BUCKETS, pcy
 from src.stacking import (
     AUGMENTATIONS,
     augment_baskets,
@@ -13,20 +14,41 @@ from src.stacking import (
     expected_itemsets,
 )
 
-APRIORI_VARIANTS = {
-    "apriori": apriori,
-    "apriori_optimized": partial(apriori, optimized=True),
-}
+VARIANTS = ("apriori", "apriori_optimized", "pcy")
 
 
-def run_experiments(baskets, support_values, repeats=3, variants=None):
+def exhaustive_with_stats(baskets, min_support, stats=None):
+    return count_exhaustive(baskets, min_support)
+
+
+def build_algorithms(variants, buckets):
+    algorithms = [("exhaustive", 0, exhaustive_with_stats)]
+    for name in variants:
+        if name == "apriori":
+            algorithms.append((name, 0, apriori))
+        elif name == "apriori_optimized":
+            algorithms.append((name, 0, partial(apriori, optimized=True)))
+        elif name == "pcy":
+            for num_buckets in buckets:
+                algorithms.append((name, num_buckets, partial(pcy, num_buckets=num_buckets)))
+        else:
+            raise ValueError(f"Unknown A-Priori variant: {name}.")
+    return algorithms
+
+
+def run_experiments(
+    baskets, support_values, repeats=3, variants=None, buckets=(DEFAULT_BUCKETS,)
+):
     if variants is None:
-        variants = list(APRIORI_VARIANTS)
+        variants = list(VARIANTS)
     if not variants:
         raise ValueError("Provide at least one A-Priori variant.")
-    for name in variants:
-        if name not in APRIORI_VARIANTS:
-            raise ValueError(f"Unknown A-Priori variant: {name}.")
+    if "pcy" in variants:
+        if not buckets:
+            raise ValueError("Provide at least one number of PCY buckets.")
+        for num_buckets in buckets:
+            if num_buckets < 1:
+                raise ValueError("Number of buckets must be at least 1.")
     if repeats < 1:
         raise ValueError("Repeats must be at least 1.")
     if not support_values:
@@ -35,9 +57,7 @@ def run_experiments(baskets, support_values, repeats=3, variants=None):
         if support < 1:
             raise ValueError("Minimum support must be at least 1.")
 
-    algorithms = [("exhaustive", count_exhaustive)]
-    for name in variants:
-        algorithms.append((name, APRIORI_VARIANTS[name]))
+    algorithms = build_algorithms(variants, buckets)
     measurements = []
 
     for support in support_values:
@@ -48,27 +68,44 @@ def run_experiments(baskets, support_values, repeats=3, variants=None):
             if repeat % 2 == 0:
                 run_order.reverse()
 
-            for name, algorithm in run_order:
+            for name, num_buckets, algorithm in run_order:
+                stats = {}
                 start = perf_counter()
-                result = algorithm(baskets, support)
+                result = algorithm(baskets, support, stats=stats)
                 elapsed = perf_counter() - start
-                outputs[name] = result
+                outputs[(name, num_buckets)] = result
+                pair_counters = ""
+                larger_candidates = ""
+                if name != "exhaustive":
+                    counters = stats.get("counters", {})
+                    pair_counters = counters.get(2, 0)
+                    larger_candidates = 0
+                    for size, count in counters.items():
+                        if size > 2:
+                            larger_candidates += count
+
                 current_measurements.append(
                     {
                         "movies": len(baskets),
                         "min_support": support,
                         "repeat": repeat,
                         "algorithm": name,
+                        "buckets": num_buckets if name == "pcy" else "",
                         "runtime_seconds": elapsed,
                         "frequent_itemsets": len(result),
+                        "pair_counters": pair_counters,
+                        "larger_candidates": larger_candidates,
+                        "frequent_buckets": stats.get("frequent_buckets", ""),
                         "results_match": True,
                     }
                 )
 
-            for name, result in outputs.items():
-                if result != outputs["exhaustive"]:
+            expected = outputs[("exhaustive", 0)]
+            for (name, num_buckets), result in outputs.items():
+                if result != expected:
+                    label = name if name != "pcy" else f"pcy with {num_buckets} buckets"
                     raise RuntimeError(
-                        f"{name} disagrees with exhaustive counting at support "
+                        f"{label} disagrees with exhaustive counting at support "
                         f"{support}, repeat {repeat}."
                     )
 
@@ -85,6 +122,7 @@ def run_scaling_experiments(
     repeats=3,
     augmentation="plain",
     variants=None,
+    buckets=(DEFAULT_BUCKETS,),
 ):
     if not source_baskets:
         raise ValueError("Provide original movie baskets.")
@@ -127,7 +165,7 @@ def run_scaling_experiments(
                     f"{augmentation} copies, support {base_support}."
                 )
 
-            rows = run_experiments(baskets, [min_support], repeats, variants)
+            rows = run_experiments(baskets, [min_support], repeats, variants, buckets)
             for row in rows:
                 row["augmentation"] = augmentation
                 row["support_rule"] = support_rule
