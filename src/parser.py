@@ -10,6 +10,22 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
         default=1,
         help="Stack the original movie baskets this many times (default: 1).",
     )
+    parser.add_argument(
+        "--augmentation",
+        choices=("plain", "relabeled"),
+        default="plain",
+        help="plain repeats the baskets and multiplies supports by the number of "
+        "copies; relabeled renames actors in each copy and keeps supports fixed "
+        "(default: plain).",
+    )
+    parser.add_argument(
+        "--variants",
+        choices=("apriori", "apriori_optimized"),
+        nargs="+",
+        default=["apriori", "apriori_optimized"],
+        help="A-Priori variants compared with exhaustive counting in experiments "
+        "and scaling (default: apriori apriori_optimized).",
+    )
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument(
         "--experiment",
@@ -19,22 +35,22 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
     modes.add_argument(
         "--scaling",
         action="store_true",
-        help="Compare both algorithms on stacked copies of the original baskets.",
+        help="Compare the algorithms on augmented copies of the original baskets.",
     )
     parser.add_argument(
         "--copy-counts",
         type=int,
         nargs="+",
         default=[1, 10, 50, 100],
-        help="Numbers of stacked copies for scaling (default: 1 10 50 100).",
+        help="Numbers of copies for scaling (default: 1 10 50 100).",
     )
     parser.add_argument(
         "--supports",
         type=int,
         nargs="+",
         default=[2, 3, 5, 10],
-        help="Support thresholds on the original movies, multiplied by the number "
-        "of copies (default: 2 3 5 10).",
+        help="Support thresholds on the original movies; plain augmentation "
+        "multiplies them by the number of copies (default: 2 3 5 10).",
     )
     parser.add_argument(
         "--repeats",
@@ -52,14 +68,15 @@ def parse_args(argv: list[str] | None = None) -> Namespace:
         "--min-support",
         type=int,
         default=2,
-        help="Minimum number of original movies containing an actor group, "
-        "multiplied by --copies (default: 2).",
+        help="Minimum number of original movies containing an actor group; plain "
+        "augmentation multiplies it by --copies (default: 2).",
     )
     args = parser.parse_args(argv)
     if args.scaling and args.copies != 1:
         parser.error("Use --copy-counts instead of --copies with --scaling.")
     if args.copies < 1:
         parser.error("--copies must be at least 1.")
+    args.variants = list(dict.fromkeys(args.variants))
     if any(copies < 1 for copies in args.copy_counts):
         parser.error("--copy-counts values must be at least 1.")
     if args.min_support < 1:

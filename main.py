@@ -8,7 +8,7 @@ from src.exhaustive import count_exhaustive
 from src.experiments import run_experiments, run_scaling_experiments, save_results
 from src.parser import parse_args
 from src.preprocessing import build_baskets, inspect_actors, load_movies
-from src.stacking import stack_baskets
+from src.stacking import augment_baskets, augmented_support
 
 
 def main() -> None:
@@ -21,32 +21,49 @@ def main() -> None:
     print(f"Prepared {len(baskets)} baskets.")
     if args.scaling:
         measurements = run_scaling_experiments(
-            baskets, args.copy_counts, args.supports, args.repeats
+            baskets,
+            args.copy_counts,
+            args.supports,
+            args.repeats,
+            args.augmentation,
+            args.variants,
         )
-        results_path = save_results(measurements, RESULTS_DIR / "scaling_stacked.csv")
+        path = RESULTS_DIR / f"scaling_{args.augmentation}.csv"
+        results_path = save_results(measurements, path)
         print(f"Scaling results saved: {results_path}")
         return
 
     original_movies = len(baskets)
     if args.copies > 1:
-        baskets = stack_baskets(baskets, args.copies)
-        print(f"Stacked {args.copies} copies; total baskets: {len(baskets)}.")
+        baskets = augment_baskets(baskets, args.copies, args.augmentation)
+        print(
+            f"Added {args.copies} {args.augmentation} copies; "
+            f"total baskets: {len(baskets)}."
+        )
 
     if args.experiment:
-        supports = [support * args.copies for support in args.supports]
-        measurements = run_experiments(baskets, supports, args.repeats)
+        supports = []
+        for support in args.supports:
+            supports.append(augmented_support(support, args.copies, args.augmentation))
+        measurements = run_experiments(baskets, supports, args.repeats, args.variants)
         for row in measurements:
+            row["augmentation"] = args.augmentation
             row["copies"] = args.copies
             row["original_movies"] = original_movies
-            row["base_support"] = row["min_support"] // args.copies
+            row["base_support"] = row["min_support"]
+            if args.augmentation == "plain":
+                row["base_support"] = row["min_support"] // args.copies
         path = RESULTS_DIR / "algorithm_comparison.csv"
         if args.copies > 1:
-            path = RESULTS_DIR / f"algorithm_comparison_stacked_{args.copies}.csv"
+            path = (
+                RESULTS_DIR
+                / f"algorithm_comparison_{args.augmentation}_{args.copies}.csv"
+            )
         results_path = save_results(measurements, path)
         print(f"Experiment results saved: {results_path}")
         return
 
-    min_support = args.min_support * args.copies
+    min_support = augmented_support(args.min_support, args.copies, args.augmentation)
     if args.algorithm == "apriori":
         frequent_itemsets = apriori(baskets, min_support)
     elif args.algorithm == "apriori-optimized":
