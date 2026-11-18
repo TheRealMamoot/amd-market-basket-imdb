@@ -1,4 +1,5 @@
 import csv
+import gc
 from functools import partial
 from pathlib import Path
 from time import perf_counter
@@ -30,14 +31,22 @@ def build_algorithms(variants, buckets):
             algorithms.append((name, 0, partial(apriori, optimized=True)))
         elif name == "pcy":
             for num_buckets in buckets:
-                algorithms.append((name, num_buckets, partial(pcy, num_buckets=num_buckets)))
+                algorithms.append(
+                    (name, num_buckets, partial(pcy, num_buckets=num_buckets))
+                )
         else:
             raise ValueError(f"Unknown A-Priori variant: {name}.")
     return algorithms
 
 
 def run_experiments(
-    baskets, support_values, repeats=3, variants=None, buckets=(DEFAULT_BUCKETS,)
+    baskets,
+    support_values,
+    repeats=3,
+    variants=None,
+    buckets=(DEFAULT_BUCKETS,),
+    warmup=True,
+    verbose=True,
 ):
     if variants is None:
         variants = list(VARIANTS)
@@ -61,6 +70,10 @@ def run_experiments(
     measurements = []
 
     for support in support_values:
+        if warmup:
+            for name, num_buckets, algorithm in algorithms:
+                algorithm(baskets, support, stats={})
+
         for repeat in range(1, repeats + 1):
             outputs = {}
             current_measurements = []
@@ -70,9 +83,14 @@ def run_experiments(
 
             for name, num_buckets, algorithm in run_order:
                 stats = {}
-                start = perf_counter()
-                result = algorithm(baskets, support, stats=stats)
-                elapsed = perf_counter() - start
+                gc.collect()
+                gc.disable()
+                try:
+                    start = perf_counter()
+                    result = algorithm(baskets, support, stats=stats)
+                    elapsed = perf_counter() - start
+                finally:
+                    gc.enable()
                 outputs[(name, num_buckets)] = result
                 pair_counters = ""
                 larger_candidates = ""
@@ -110,7 +128,8 @@ def run_experiments(
                     )
 
             measurements.extend(current_measurements)
-            print(f"Support {support}, repeat {repeat}/{repeats}: results match.")
+            if verbose:
+                print(f"Support {support}, repeat {repeat}/{repeats}: results match.")
 
     return measurements
 
@@ -123,6 +142,8 @@ def run_scaling_experiments(
     augmentation="plain",
     variants=None,
     buckets=(DEFAULT_BUCKETS,),
+    warmup=True,
+    verbose=True,
 ):
     if not source_baskets:
         raise ValueError("Provide original movie baskets.")
@@ -149,10 +170,11 @@ def run_scaling_experiments(
     measurements = []
     for copies in copy_counts:
         baskets = augment_baskets(source_baskets, copies, augmentation)
-        print(
-            f"Scaling dataset: {len(baskets)} baskets "
-            f"({copies} {augmentation} copies)."
-        )
+        if verbose:
+            print(
+                f"Scaling dataset: {len(baskets)} baskets "
+                f"({copies} {augmentation} copies)."
+            )
 
         for base_support in base_supports:
             min_support = augmented_support(base_support, copies, augmentation)
@@ -165,7 +187,15 @@ def run_scaling_experiments(
                     f"{augmentation} copies, support {base_support}."
                 )
 
-            rows = run_experiments(baskets, [min_support], repeats, variants, buckets)
+            rows = run_experiments(
+                baskets,
+                [min_support],
+                repeats,
+                variants,
+                buckets,
+                warmup=warmup,
+                verbose=verbose,
+            )
             for row in rows:
                 row["augmentation"] = augmentation
                 row["support_rule"] = support_rule
