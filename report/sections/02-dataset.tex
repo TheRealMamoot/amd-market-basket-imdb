@@ -1,0 +1,8 @@
+\section{Dataset and the parts considered}
+\label{sec:dataset}
+
+The data is the \emph{IMDB Movies Dataset}~\cite{imdbdataset}, published on Kaggle: the 1000 top-rated movies and TV shows on IMDb, one row per title, with 16 columns describing the title (name, year, certificate, runtime, genre), its reception (IMDb rating, Metascore, votes, gross) and its credits (director and four stars, \texttt{Star1}--\texttt{Star4}).
+
+The dataset is downloaded through the Kaggle API when the notebook runs. The API token is read from the environment, from a \texttt{.env} file excluded from version control when running locally, or from a Colab secret when running on Colab, so that no credentials appear in the code or in the repository. An existing download is reused.
+
+Following the project specification, a basket is formed only by the billed stars, so only the columns \texttt{Star1}--\texttt{Star4} are used to build the baskets. \texttt{Series\_Title} is kept only to interpret the results; the remaining columns, including the director, are not used. At 1000 rows the whole dataset can be processed, so no subsampling is applied.

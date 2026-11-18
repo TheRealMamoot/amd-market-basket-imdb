@@ -1,0 +1,16 @@
+\section{Introduction}
+
+The project addresses the market-basket problem on the IMDb Top 1000 movies: each movie is a \emph{basket} whose \emph{items} are its four billed stars, and the goal is to find the groups of actors that appear together in many movies. Finding such frequent itemsets is a classic task for the techniques of the course, presented in Chapter~6 of \emph{Mining of Massive Datasets}~\cite{mmds} (RU in the following).
+
+Four methods are implemented and compared:
+\begin{itemize}
+  \item \textbf{exhaustive counting}, which counts every subset of every basket and serves as ground truth;
+  \item \textbf{A-Priori}~\cite{agrawal1994} in its textbook form, referred to as \emph{basic};
+  \item an \textbf{optimized A-Priori}, which returns the same itemsets but removes the bottleneck found in the basic version;
+  \item \textbf{PCY}~\cite{park1995}, which hashes pairs into buckets during the first pass to reduce the pairs counted in the second.
+\end{itemize}
+Every result of every method is checked against exhaustive counting. Besides the comparison on the original data, the report studies how the methods scale when the data is enlarged, both by repeating the baskets and by adding new, distinct actors.
+
+The code is written in Python~3 and is organised as a package (\texttt{src/}) used by a Jupyter notebook (\texttt{main.ipynb}) that reproduces every result in this report and runs on Google Colab. Both are available in the public repository \url{https://github.com/TheRealMamoot/amd-market-basket-imdb}.
+
+The rest of the report follows the order of the analysis: the dataset (Section~\ref{sec:dataset}), its organisation and pre-processing (Section~\ref{sec:preprocessing}), the algorithms and their implementation (Section~\ref{sec:algorithms}), the approach to scalability (Section~\ref{sec:scalability}), the experimental setup (Section~\ref{sec:experiments}), the results (Section~\ref{sec:results}) and the conclusions (Section~\ref{sec:conclusions}).
