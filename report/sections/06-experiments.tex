@@ -1,0 +1,21 @@
+\section{Experimental setup}
+\label{sec:experiments}
+
+\paragraph{Environment.} All results in this report come from a single reference run of the notebook at commit \texttt{b94e7b5}, on an Apple M2 with 8 cores and 8\,GB of RAM, under macOS 26.5.1 and Python 3.13.4, with the package versions pinned in \texttt{requirements.txt}. The whole notebook ran in about two minutes. The raw measurements are stored in \texttt{report/data/} and the figures are drawn from them by \texttt{report/make\_figures.py}.
+
+\paragraph{Experiments.} The experiments are defined by the global settings of the notebook:
+\begin{itemize}
+  \item \textbf{Original data:} every method at $s \in \{1, 2, 3, 5, 10\}$, PCY with $B \in \{10^3, 10^4, 10^5, 10^6\}$.
+  \item \textbf{Plain stacking:} $r \in \{1, 10, 50, 100\}$, that is 1{,}000 to 100{,}000 baskets, base supports $s \in \{2, 5\}$ scaled to $r\,s$, all methods.
+  \item \textbf{Relabelled stacking:} the same sizes with fixed supports $s \in \{2, 5\}$, for exhaustive counting, optimized A-Priori and PCY; basic A-Priori only for $r \in \{1, \dots, 5\}$ and $s = 2$ (Section~\ref{sec:scalability}).
+\end{itemize}
+
+\paragraph{Timing.} Each configuration first runs once untimed as a warm-up, then three times, with the order of the methods reversed between repetitions; basic A-Priori on relabelled data runs once after the warm-up, since its runs take seconds. Before each timed run the garbage collector is invoked, and during the run it is disabled, as Python's \texttt{timeit} does, so that a collection triggered by the objects of one method is not charged to another. Times are reported as medians.
+
+\paragraph{Correctness.} Every run is checked against exhaustive counting, and on enlarged data also against the result known in advance; the experiment stops at the first difference. All 427 timed runs of the reference run passed both checks.
+
+\paragraph{Measures.} Besides time, the experiments record how many pairs each method stores for pass 2. For basic A-Priori this is the number of candidate pairs it materialises, $|C_2|$; for optimized A-Priori and PCY it is the number of pair counters actually created. For PCY, the number of frequent buckets is also recorded.
+
+\paragraph{Growth exponents.} To summarise how time grows with the data, the median time $t$ is fitted as $t \propto n^{\alpha}$ by least squares on $\log t$ against $\log n$, using the sizes from 10{,}000 baskets upwards (from 2{,}000 for basic A-Priori on relabelled data), where timings are most stable. An exponent $\alpha \approx 1$ indicates linear growth and $\alpha \approx 2$ quadratic growth.
+
+\paragraph{Variability.} Times vary between runs and machines by tens of percent, more for runs of a few milliseconds. The counts of itemsets, candidates, counters and buckets are deterministic and are reproduced exactly by every run; the conclusions rely on them and on orderings and growth exponents of the times, which are stable across runs, rather than on individual times.
