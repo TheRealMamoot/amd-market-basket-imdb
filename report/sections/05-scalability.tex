@@ -1,0 +1,30 @@
+\section{Scalability}
+\label{sec:scalability}
+
+\paragraph{Expected behaviour.} Every counting pass of A-Priori and PCY reads each basket once and does a bounded amount of work on it, since a basket has at most $\binom{4}{k}$ subsets of size $k$. With at most $k_{\max} + 1$ passes, the cost of reading therefore grows linearly with the number of baskets $n$. The total cost also includes building candidates, which depends on the frequent itemsets rather than on $n$: it stays constant when the frequent itemsets do not change, and can grow faster than linearly when they grow, as $|C_2| = \binom{m}{2}$ does for basic A-Priori. Likewise, the memory of the mining structures, the counters and candidates and, for PCY, the $B$ buckets, depends on $m$, on the number of distinct pairs that occur and on $B$, and not on $n$; the baskets themselves are held in memory in this implementation, so total memory also grows with $n$, which a version that re-reads the file at each pass would avoid. Linear growth is therefore expected only for methods whose candidates and counters grow at most linearly with the data.
+
+\paragraph{Enlarging the data.} To test this beyond 1000 movies, the dataset is enlarged to $r$ copies in two controlled ways (primes denote the enlarged data):
+\begin{itemize}
+  \item \textbf{Plain stacking} repeats the baskets: $n' = r\,n$ and $\supp'(I) = r\,\supp(I)$ for every itemset. With the threshold $s' = r\,s$, a constant fraction of the baskets, $L'_k = L_k$ for every $k$: only the number of baskets changes.
+  \item \textbf{Relabelled stacking} renames the actors in each copy (copy $j$ of \emph{Tom Hanks} becomes \emph{Tom Hanks\#$j$}). Again $n' = r\,n$, but the distinct actors and pairs grow $r$-fold, and each renamed itemset keeps the support of the original. With a fixed threshold $s' = s$, $L'_k$ consists of $r$ renamed copies of $L_k$.
+\end{itemize}
+Each enlargement is paired with the only threshold rule that keeps the problem comparable across sizes. The other two combinations reduce to changing the support on the original data (Table~\ref{tab:threshold-rules}): plain stacking with a fixed count is equivalent to the original data at support $\lceil s / r \rceil$, so that every subset becomes frequent once $r \ge s$; relabelled stacking with a constant fraction is equivalent to support $r\,s$, so that nothing is frequent once $r\,s$ exceeds the largest support, 17.
+
+\begin{table}[ht]
+  \centering
+  \caption{Threshold rules for the enlarged data and what each combination measures.}
+  \label{tab:threshold-rules}
+  \small
+  \begin{tabular}{lp{4.2cm}p{4.6cm}}
+    \toprule
+    & constant fraction ($s' = r s$) & fixed count ($s' = s$) \\
+    \midrule
+    plain stacking & same itemsets, more baskets & original data at support $\lceil s / r \rceil$ \\
+    relabelled stacking & original data at support $r s$ & $r$ copies of the itemsets, more baskets and actors \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+In both enlargements the exact result is known in advance, every count multiplied by $r$ or $r$ renamed copies of the original result, and each run is checked against it as well as against exhaustive counting. The two enlargements bracket two kinds of growth, more baskets with the same actors and more baskets with proportionally more actors, but they are controlled workloads: they create no new co-occurrences and do not reproduce how real data would grow. They are used only to measure cost, and all findings about actors come from the original data.
+
+\paragraph{Basic A-Priori on relabelled data.} Under relabelled stacking the frequent actors grow to $r\,m$, so basic A-Priori builds $\binom{r m}{2} \approx r^2 \binom{m}{2}$ candidate pairs. At $r = 100$ and $s = 2$ this would be $\binom{64{,}100}{2} \approx 2 \times 10^9$ pairs, far beyond the available memory, and already at $r = 10$ the roughly $2 \times 10^7$ candidate tuples take gigabytes and make the timings depend on the memory available on the machine. Basic A-Priori is therefore run on relabelled data only for $r \le 5$.

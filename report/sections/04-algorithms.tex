@@ -1,0 +1,72 @@
+\section{Algorithms and implementation}
+\label{sec:algorithms}
+
+Every method takes the baskets $\baskets$ and a support threshold $s$ and returns the frequent itemsets $\{\, I : \supp(I) \ge s \,\}$ with their supports. Following RU, $L_k$ denotes the frequent itemsets of size $k$, $C_k$ the candidate itemsets of size $k$ whose support is counted, and $m = |L_1|$ the number of frequent actors. The implementations are in \texttt{src/exhaustive.py}, \texttt{src/apriori.py} and \texttt{src/pcy.py}; each returns a dictionary from itemsets to supports and can record, for every itemset size, how many candidates or counters it stored.
+
+\subsection{Exhaustive counting}
+
+Exhaustive counting makes a single pass and, for every basket $T$, increments a counter for each of its $2^{|T|} - 1$ non-empty subsets; the itemsets whose counter reaches $s$ are returned. It performs $\sum_{i=1}^{n} (2^{|T_i|} - 1) \le 15n$ increments here, and stores a counter for every distinct subset that occurs, 13{,}492 in total. With baskets of bounded size its time therefore grows linearly with $n$, but it grows exponentially with the size of the baskets: a basket of 20 items would already have about a million subsets, and the table of counters grows with the number of distinct subsets that occur. It is cheap here only because no basket has more than four actors, and on this dataset it provides an exact ground truth against which every other result is checked.
+
+\subsection{A-Priori}
+
+A-Priori~\cite{agrawal1994} (RU \S6.2) rests on monotonicity: if $I \subseteq J$ then $\supp(J) \le \supp(I)$, so every subset of a frequent itemset is frequent. The algorithm makes one pass per itemset size. Pass 1 counts single actors and yields $L_1$; pass $k \ge 2$ counts only the candidates
+\[
+  C_k = \bigl\{\, I : |I| = k,\ J \in L_{k-1} \text{ for every } J \subset I \text{ with } |J| = k - 1 \,\bigr\},
+  \qquad
+  L_k = \{\, I \in C_k : \supp(I) \ge s \,\},
+\]
+and stops when $L_k$ is empty or $k$ exceeds the largest basket. There are therefore at most $k_{\max} + 1$ passes, where $k_{\max}$ is the size of the largest frequent itemset.
+
+The \emph{basic} implementation builds $C_k$ as in the original algorithm: it joins two itemsets of $L_{k-1}$ that agree on their first $k - 2$ actors, and prunes the result if any of its $(k-1)$-subsets is not in $L_{k-1}$ (\texttt{generate\_candidates}). It then counts the candidates by enumerating the $\binom{|T|}{k}$ subsets of size $k$ of each basket and looking them up in the set $C_k$ (\texttt{count\_candidates}). With at most four actors per basket this means at most six lookups per basket and pass, which is why the subsets of the basket are enumerated instead of testing every candidate against it.
+
+\subsection{The bottleneck of the basic version}
+
+Timing the two steps of each pass separately (Table~\ref{tab:bottleneck}) shows that at low support almost all the time is spent building candidates, while counting them is negligible. The join is implemented by comparing every pair of itemsets in $L_{k-1}$ and discarding those whose prefixes differ, which costs $\binom{|L_{k-1}|}{2}$ comparisons. For $k = 2$ the prefix is empty, so every pair of frequent actors becomes a candidate and
+\[
+  |C_2| = \binom{m}{2}.
+\]
+At $s = 1$ this gives 3{,}667{,}986 candidate pairs for $m = 2{,}709$; at $s = 2$, 205{,}120 for $m = 641$, of which only $|L_2| = 121$ are frequent. Most candidate pairs never occur together in any basket.
+
+\begin{table}[ht]
+  \centering
+  \caption{Basic A-Priori: candidates, frequent itemsets and time of the two steps of each pass (reference run).}
+  \label{tab:bottleneck}
+  \begin{tabular}{rrrrrr}
+    \toprule
+    $s$ & $k$ & $|C_k|$ & $|L_k|$ & building $C_k$ (ms) & counting (ms) \\
+    \midrule
+    1 & 2 & 3{,}667{,}986 & 5{,}833 & 2{,}760.2 & 28.2 \\
+    1 & 3 & 4{,}007 & 3{,}958 & 2{,}007.3 & 1.5 \\
+    1 & 4 & 992 & 992 & 784.4 & 0.6 \\
+    2 & 2 & 205{,}120 & 121 & 138.6 & 1.2 \\
+    2 & 3 & 26 & 25 & 10.3 & 0.3 \\
+    2 & 4 & 4 & 4 & 0.0 & 0.2 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Optimized A-Priori}
+
+The optimized version returns exactly the same itemsets with three changes.
+\begin{enumerate}
+  \item \textbf{Pairs are counted directly.} Pass 2 enumerates the pairs of $T \cap L_1$ for each basket and keeps a counter only for pairs that occur, the ``triples'' method of RU \S6.2.2. Pairs that never occur have support 0 and cannot be frequent, so nothing is lost. At $s = 2$ this needs 1{,}516 counters, against the 205{,}120 candidate pairs of the basic version: only 0.7\% of the possible pairs of frequent actors occur in some basket.
+  \item \textbf{The join works within prefix groups.} For $k \ge 3$, $L_{k-1}$ is first grouped by the first $k - 2$ actors of each itemset, and only itemsets in the same group are joined, in the function
+  \texttt{generate\_candidates\_by\_prefix}. The candidates are the same as before, but the cost is the sum of $\binom{|g|}{2}$ over the groups $g$ instead of $\binom{|L_{k-1}|}{2}$.
+  \item \textbf{Baskets are trimmed.} Before its $k$-subsets are enumerated, each basket is reduced to the actors that appear in some itemset of $L_{k-1}$. Every candidate consists of such actors, so the trimming cannot remove a candidate occurrence.
+\end{enumerate}
+
+\subsection{PCY}
+
+PCY~\cite{park1995} (RU \S6.3.1) uses the memory left idle during pass 1. While counting actors, it hashes every pair of each basket into one of $B$ buckets with
+\[
+  h(i, j) = \bigl(a \cdot \mathrm{id}(i) + \mathrm{id}(j)\bigr) \bmod B, \qquad a = 2{,}654{,}435{,}761,
+\]
+where $\mathrm{id}$ numbers the actors in order of first appearance, and it counts the pair occurrences falling in each bucket,
+\[
+  c(b) = \sum_{\{i, j\} :\, h(i, j) = b} \supp(\{i, j\}).
+\]
+Between the passes the counts are summarised by a bitmap marking the frequent buckets, those with $c(b) \ge s$. Pass 2 counts a pair $\{i, j\}$ only if $i, j \in L_1$ and $c(h(i, j)) \ge s$. Since $\supp(\{i, j\}) \le c(h(i, j))$, a frequent pair always falls in a frequent bucket and no frequent pair is lost. Passes 3 and later are those of optimized A-Priori.
+
+The filter is effective only if most buckets are infrequent. With $P = \sum_{i=1}^{n} \binom{|T_i|}{2}$ pair occurrences, here $P = 5{,}988$, the average bucket count is $P / B$. RU (Example~6.9) uses it as a guide: when it is well below $s$, most buckets are infrequent, and as it approaches or exceeds $s$, more and more buckets become frequent and PCY counts almost the same pairs as A-Priori. It is a heuristic rather than a guarantee, since the actual fraction of frequent buckets depends on how the pair occurrences are distributed over the buckets; the measured frequent buckets are reported in Section~\ref{sec:results}. Because the pairs it removes are scattered, PCY cannot use the compact triangular matrix and must keep a counter per pair; RU notes that it therefore pays off only if it removes at least two thirds of the pairs of frequent items. On this dataset, where fewer than 1\% of these pairs occur, optimized A-Priori already uses per-pair counters, so the relevant comparison is between the counters of the two methods.
+
+In the implementation the bucket counts are a Python list and the bitmap a byte array with one byte per bucket. The list is not released before pass 2, so PCY reduces the number of pair counters but not the total memory used, which also contains the buckets.
