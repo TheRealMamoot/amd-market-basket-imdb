@@ -18,3 +18,12 @@ python main.py --algorithm pcy --min-support 3   # mine once and print the most 
 python main.py --experiment                       # compare all algorithms, saved to results/
 python main.py --scaling --augmentation relabeled --variants apriori_optimized pcy  # scalability, saved to results/
 ```
+
+## Report
+
+The report is [`report.pdf`](report.pdf); its LaTeX source, data and figures are in `report/`. To rebuild it with [Tectonic](https://tectonic-typesetting.github.io):
+
+```bash
+python report/make_figures.py                                  # redraw the figures from report/data/
+tectonic report/main.tex --outdir . && mv main.pdf report.pdf  # compile into the repository root
+```
