@@ -1,0 +1,151 @@
+actors,movies
+"Daniel Radcliffe, Rupert Grint",6
+"Daniel Radcliffe, Emma Watson",5
+"Daniel Radcliffe, Emma Watson, Rupert Grint",5
+"Emma Watson, Rupert Grint",5
+"Joe Pesci, Robert De Niro",4
+"Tim Allen, Tom Hanks",4
+"Al Pacino, Diane Keaton",3
+"Al Pacino, Robert De Niro",3
+"Carrie Fisher, Harrison Ford",3
+"Carrie Fisher, Harrison Ford, Mark Hamill",3
+"Carrie Fisher, Mark Hamill",3
+"Chris Evans, Joe Russo",3
+"Chris Evans, Robert Downey Jr.",3
+"Chris Evans, Scarlett Johansson",3
+"Christian Bale, Michael Caine",3
+"Diane Keaton, Woody Allen",3
+"Elijah Wood, Ian McKellen",3
+"Elijah Wood, Ian McKellen, Orlando Bloom",3
+"Elijah Wood, Orlando Bloom",3
+"Ethan Coen, John Turturro",3
+"Ethan Hawke, Julie Delpy",3
+"Harrison Ford, Mark Hamill",3
+"Humphrey Bogart, Lauren Bacall",3
+"Ian McKellen, Orlando Bloom",3
+"Joe Russo, Robert Downey Jr.",3
+"Mark Ruffalo, Robert Downey Jr.",3
+"Takashi Shimura, Toshirô Mifune",3
+"Tatsuya Nakadai, Toshirô Mifune",3
+"Aamir Khan, Sharman Joshi",2
+"Akshay Kumar, Paresh Rawal",2
+"Alec Guinness, Jack Hawkins",2
+"Anatoliy Solonitsyn, Nikolay Grinko",2
+"André Ramiro, Milhem Cortaz",2
+"André Ramiro, Milhem Cortaz, Wagner Moura",2
+"André Ramiro, Wagner Moura",2
+"Anouk Aimée, Marcello Mastroianni",2
+"Anupam Kher, Jimmy Sheirgill",2
+"Arnold Schwarzenegger, Linda Hamilton",2
+"Arshad Warsi, Sanjay Dutt",2
+"Bibi Andersson, Gunnar Björnstrand",2
+"Bill Murray, Jason Schwartzman",2
+"Billy Dee Williams, Carrie Fisher",2
+"Billy Dee Williams, Carrie Fisher, Harrison Ford",2
+"Billy Dee Williams, Carrie Fisher, Harrison Ford, Mark Hamill",2
+"Billy Dee Williams, Carrie Fisher, Mark Hamill",2
+"Billy Dee Williams, Harrison Ford",2
+"Billy Dee Williams, Harrison Ford, Mark Hamill",2
+"Billy Dee Williams, Mark Hamill",2
+"Boman Irani, Sanjay Dutt",2
+"Boris Karloff, Colin Clive",2
+"Brenda Blethyn, Keira Knightley",2
+"Bruce Willis, Samuel L. Jackson",2
+"Cary Grant, Katharine Hepburn",2
+"Charles Bronson, Steve McQueen",2
+"Charles Chaplin, Henry Bergman",2
+"Charles Chaplin, Paulette Goddard",2
+"Chico Marx, Groucho Marx",2
+"Chico Marx, Groucho Marx, Harpo Marx",2
+"Chico Marx, Harpo Marx",2
+"Chris Evans, Joe Russo, Robert Downey Jr.",2
+"Chris Evans, Joe Russo, Scarlett Johansson",2
+"Chris Evans, Robert Downey Jr., Scarlett Johansson",2
+"Chris Hemsworth, Mark Ruffalo",2
+"Chris Pine, Zachary Quinto",2
+"Chris Pratt, Vin Diesel",2
+"Chris Pratt, Vin Diesel, Zoe Saldana",2
+"Chris Pratt, Zoe Saldana",2
+"Christopher Lloyd, Lea Thompson",2
+"Christopher Lloyd, Lea Thompson, Michael J. Fox",2
+"Christopher Lloyd, Michael J. Fox",2
+"Christopher Plummer, Russell Crowe",2
+"Claude Rains, Ingrid Bergman",2
+"Clint Eastwood, Gian Maria Volontè",2
+"Clint Eastwood, Lee Van Cleef",2
+"Clint Eastwood, Morgan Freeman",2
+"Craig T. Nelson, Holly Hunter",2
+"Daniel Craig, Judi Dench",2
+"Daniel Radcliffe, Emma Watson, Michael Gambon",2
+"Daniel Radcliffe, Emma Watson, Michael Gambon, Rupert Grint",2
+"Daniel Radcliffe, Michael Gambon",2
+"Daniel Radcliffe, Michael Gambon, Rupert Grint",2
+"Daryl Hannah, David Carradine",2
+"Daryl Hannah, David Carradine, Michael Madsen",2
+"Daryl Hannah, David Carradine, Michael Madsen, Uma Thurman",2
+"Daryl Hannah, David Carradine, Uma Thurman",2
+"Daryl Hannah, Michael Madsen",2
+"Daryl Hannah, Michael Madsen, Uma Thurman",2
+"Daryl Hannah, Uma Thurman",2
+"David Carradine, Michael Madsen",2
+"David Carradine, Michael Madsen, Uma Thurman",2
+"David Carradine, Uma Thurman",2
+"Domhnall Gleeson, Oscar Isaac",2
+"Elijah Wood, Ian McKellen, Orlando Bloom, Viggo Mortensen",2
+"Elijah Wood, Ian McKellen, Viggo Mortensen",2
+"Elijah Wood, Orlando Bloom, Viggo Mortensen",2
+"Elijah Wood, Viggo Mortensen",2
+"Emma Watson, Michael Gambon",2
+"Emma Watson, Michael Gambon, Rupert Grint",2
+"Ethan Coen, Frances McDormand",2
+"Ethan Coen, John Goodman",2
+"Franka Potente, Matt Damon",2
+"Gary Sinise, Tom Hanks",2
+"Gerard Butler, Jay Baruchel",2
+"Graham Chapman, John Cleese",2
+"Groucho Marx, Harpo Marx",2
+"Hugh Jackman, Patrick Stewart",2
+"Ian McKellen, Martin Freeman",2
+"Ian McKellen, Martin Freeman, Richard Armitage",2
+"Ian McKellen, Orlando Bloom, Viggo Mortensen",2
+"Ian McKellen, Richard Armitage",2
+"Ian McKellen, Viggo Mortensen",2
+"Jack Lemmon, Walter Matthau",2
+"James Woods, Robert De Niro",2
+"Jamie Foxx, Kerry Washington",2
+"Jinpachi Nezu, Tatsuya Nakadai",2
+"Joan Allen, Matt Damon",2
+"Joe Russo, Mark Ruffalo",2
+"Joe Russo, Mark Ruffalo, Robert Downey Jr.",2
+"Joe Russo, Scarlett Johansson",2
+"John Wayne, Vera Miles",2
+"John Wayne, Ward Bond",2
+"Joseph Cotten, Orson Welles",2
+"Julie Christie, Kate Winslet",2
+"Julie Delpy, Zbigniew Zamachowski",2
+"Kajol, Shah Rukh Khan",2
+"Kareena Kapoor, Shahid Kapoor",2
+"Karl Malden, Marlon Brando",2
+"Kate Winslet, Tom Wilkinson",2
+"Lea Thompson, Michael J. Fox",2
+"Leonardo DiCaprio, Margot Robbie",2
+"Mads Mikkelsen, Thomas Bo Larsen",2
+"Maggie Cheung, Tony Chiu-Wai Leung",2
+"Martin Freeman, Richard Armitage",2
+"Michael Gambon, Rupert Grint",2
+"Michael Madsen, Uma Thurman",2
+"Milhem Cortaz, Wagner Moura",2
+"Minoru Chiaki, Toshirô Mifune",2
+"Morena Baccarin, Ryan Reynolds",2
+"Nick Frost, Simon Pegg",2
+"Nicoletta Braschi, Roberto Benigni",2
+"Orlando Bloom, Viggo Mortensen",2
+"Paprika Steen, Ulrich Thomsen",2
+"Paul Newman, Robert Redford",2
+"Paul Newman, Strother Martin",2
+"Prabhas, Rana Daggubati",2
+"Preity Zinta, Saif Ali Khan",2
+"Preity Zinta, Shah Rukh Khan",2
+"Robert Downey Jr., Scarlett Johansson",2
+"Shahab Hosseini, Taraneh Alidoosti",2
+"Vin Diesel, Zoe Saldana",2

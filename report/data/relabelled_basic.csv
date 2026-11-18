@@ -1,0 +1,11 @@
+movies,min_support,repeat,algorithm,buckets,runtime_seconds,frequent_itemsets,pair_counters,larger_candidates,frequent_buckets,results_match,augmentation,support_rule,copies,original_movies,base_support,support_fraction,matches_expected,method
+1000,2,1,exhaustive,,0.003997374995378777,791,,,,True,relabeled,count,1,1000,2,0.002,True,Exhaustive
+1000,2,1,apriori,,0.14281154100899585,791,205120.0,30,,True,relabeled,count,1,1000,2,0.002,True,A-Priori (basic)
+2000,2,1,exhaustive,,0.00808408300508745,1582,,,,True,relabeled,count,2,1000,2,0.001,True,Exhaustive
+2000,2,1,apriori,,0.6549518750107381,1582,821121.0,60,,True,relabeled,count,2,1000,2,0.001,True,A-Priori (basic)
+3000,2,1,exhaustive,,0.01233504101401195,2373,,,,True,relabeled,count,3,1000,2,0.0006666666666666666,True,Exhaustive
+3000,2,1,apriori,,1.5256322910136078,2373,1848003.0,90,,True,relabeled,count,3,1000,2,0.0006666666666666666,True,A-Priori (basic)
+4000,2,1,exhaustive,,0.01724149999790825,3164,,,,True,relabeled,count,4,1000,2,0.0005,True,Exhaustive
+4000,2,1,apriori,,2.9271887080103625,3164,3285766.0,120,,True,relabeled,count,4,1000,2,0.0005,True,A-Priori (basic)
+5000,2,1,exhaustive,,0.01983629199094139,3955,,,,True,relabeled,count,5,1000,2,0.0004,True,Exhaustive
+5000,2,1,apriori,,4.504262583999662,3955,5134410.0,150,,True,relabeled,count,5,1000,2,0.0004,True,A-Priori (basic)

@@ -1,0 +1,169 @@
+movies,min_support,repeat,algorithm,buckets,runtime_seconds,frequent_itemsets,pair_counters,larger_candidates,frequent_buckets,results_match,augmentation,support_rule,copies,original_movies,base_support,support_fraction,matches_expected,method
+1000,2,1,exhaustive,,0.003903000004356727,791,,,,True,plain,fraction,1,1000,2,0.002,True,Exhaustive
+1000,2,1,apriori,,0.14536604197928682,791,205120.0,30,,True,plain,fraction,1,1000,2,0.002,True,A-Priori (basic)
+1000,2,1,apriori_optimized,,0.0022715000086463988,791,1516.0,30,,True,plain,fraction,1,1000,2,0.002,True,A-Priori (optimized)
+1000,2,1,pcy,1000,0.0036113329988438636,791,1508.0,30,976,True,plain,fraction,1,1000,2,0.002,True,"PCY (1,000 buckets)"
+1000,2,1,pcy,10000,0.00449783299700357,791,696.0,30,1134,True,plain,fraction,1,1000,2,0.002,True,"PCY (10,000 buckets)"
+1000,2,1,pcy,100000,0.0062195830105338246,791,192.0,30,238,True,plain,fraction,1,1000,2,0.002,True,"PCY (100,000 buckets)"
+1000,2,1,pcy,1000000,0.03422633299487643,791,129.0,30,134,True,plain,fraction,1,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+1000,2,2,pcy,1000000,0.032202959002461284,791,129.0,30,134,True,plain,fraction,1,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+1000,2,2,pcy,100000,0.007017041993094608,791,192.0,30,238,True,plain,fraction,1,1000,2,0.002,True,"PCY (100,000 buckets)"
+1000,2,2,pcy,10000,0.004146291001234204,791,696.0,30,1134,True,plain,fraction,1,1000,2,0.002,True,"PCY (10,000 buckets)"
+1000,2,2,pcy,1000,0.0038895000179763883,791,1508.0,30,976,True,plain,fraction,1,1000,2,0.002,True,"PCY (1,000 buckets)"
+1000,2,2,apriori_optimized,,0.0023912500182632357,791,1516.0,30,,True,plain,fraction,1,1000,2,0.002,True,A-Priori (optimized)
+1000,2,2,apriori,,0.159128667000914,791,205120.0,30,,True,plain,fraction,1,1000,2,0.002,True,A-Priori (basic)
+1000,2,2,exhaustive,,0.004389667010400444,791,,,,True,plain,fraction,1,1000,2,0.002,True,Exhaustive
+1000,2,3,exhaustive,,0.004047124995850027,791,,,,True,plain,fraction,1,1000,2,0.002,True,Exhaustive
+1000,2,3,apriori,,0.1439114169916138,791,205120.0,30,,True,plain,fraction,1,1000,2,0.002,True,A-Priori (basic)
+1000,2,3,apriori_optimized,,0.0026540829858276993,791,1516.0,30,,True,plain,fraction,1,1000,2,0.002,True,A-Priori (optimized)
+1000,2,3,pcy,1000,0.0039696249878033996,791,1508.0,30,976,True,plain,fraction,1,1000,2,0.002,True,"PCY (1,000 buckets)"
+1000,2,3,pcy,10000,0.00371316698146984,791,696.0,30,1134,True,plain,fraction,1,1000,2,0.002,True,"PCY (10,000 buckets)"
+1000,2,3,pcy,100000,0.006780916010029614,791,192.0,30,238,True,plain,fraction,1,1000,2,0.002,True,"PCY (100,000 buckets)"
+1000,2,3,pcy,1000000,0.03395333400112577,791,129.0,30,134,True,plain,fraction,1,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+1000,5,1,exhaustive,,0.00407391699263826,83,,,,True,plain,fraction,1,1000,5,0.005,True,Exhaustive
+1000,5,1,apriori,,0.003503375017317012,83,3081.0,1,,True,plain,fraction,1,1000,5,0.005,True,A-Priori (basic)
+1000,5,1,apriori_optimized,,0.0014509159955196083,83,139.0,1,,True,plain,fraction,1,1000,5,0.005,True,A-Priori (optimized)
+1000,5,1,pcy,1000,0.0024692910083103925,83,120.0,1,717,True,plain,fraction,1,1000,5,0.005,True,"PCY (1,000 buckets)"
+1000,5,1,pcy,10000,0.0028446660144254565,83,5.0,1,5,True,plain,fraction,1,1000,5,0.005,True,"PCY (10,000 buckets)"
+1000,5,1,pcy,100000,0.005415291991084814,83,3.0,1,3,True,plain,fraction,1,1000,5,0.005,True,"PCY (100,000 buckets)"
+1000,5,1,pcy,1000000,0.03155641700141132,83,3.0,1,3,True,plain,fraction,1,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+1000,5,2,pcy,1000000,0.03166616699309088,83,3.0,1,3,True,plain,fraction,1,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+1000,5,2,pcy,100000,0.005661999981384724,83,3.0,1,3,True,plain,fraction,1,1000,5,0.005,True,"PCY (100,000 buckets)"
+1000,5,2,pcy,10000,0.002970000001369044,83,5.0,1,5,True,plain,fraction,1,1000,5,0.005,True,"PCY (10,000 buckets)"
+1000,5,2,pcy,1000,0.0027640420012176037,83,120.0,1,717,True,plain,fraction,1,1000,5,0.005,True,"PCY (1,000 buckets)"
+1000,5,2,apriori_optimized,,0.0013852919801138341,83,139.0,1,,True,plain,fraction,1,1000,5,0.005,True,A-Priori (optimized)
+1000,5,2,apriori,,0.0034650000161491334,83,3081.0,1,,True,plain,fraction,1,1000,5,0.005,True,A-Priori (basic)
+1000,5,2,exhaustive,,0.003635792003478855,83,,,,True,plain,fraction,1,1000,5,0.005,True,Exhaustive
+1000,5,3,exhaustive,,0.003672292019473389,83,,,,True,plain,fraction,1,1000,5,0.005,True,Exhaustive
+1000,5,3,apriori,,0.0037457080034073442,83,3081.0,1,,True,plain,fraction,1,1000,5,0.005,True,A-Priori (basic)
+1000,5,3,apriori_optimized,,0.001387416006764397,83,139.0,1,,True,plain,fraction,1,1000,5,0.005,True,A-Priori (optimized)
+1000,5,3,pcy,1000,0.0025807080091908574,83,120.0,1,717,True,plain,fraction,1,1000,5,0.005,True,"PCY (1,000 buckets)"
+1000,5,3,pcy,10000,0.0028577919874805957,83,5.0,1,5,True,plain,fraction,1,1000,5,0.005,True,"PCY (10,000 buckets)"
+1000,5,3,pcy,100000,0.005559917015489191,83,3.0,1,3,True,plain,fraction,1,1000,5,0.005,True,"PCY (100,000 buckets)"
+1000,5,3,pcy,1000000,0.03232299999217503,83,3.0,1,3,True,plain,fraction,1,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+10000,20,1,exhaustive,,0.026352666987804696,791,,,,True,plain,fraction,10,1000,2,0.002,True,Exhaustive
+10000,20,1,apriori,,0.16386691702064127,791,205120.0,30,,True,plain,fraction,10,1000,2,0.002,True,A-Priori (basic)
+10000,20,1,apriori_optimized,,0.01637075000326149,791,1516.0,30,,True,plain,fraction,10,1000,2,0.002,True,A-Priori (optimized)
+10000,20,1,pcy,1000,0.02919575001578778,791,1508.0,30,976,True,plain,fraction,10,1000,2,0.002,True,"PCY (1,000 buckets)"
+10000,20,1,pcy,10000,0.02800799999386072,791,696.0,30,1134,True,plain,fraction,10,1000,2,0.002,True,"PCY (10,000 buckets)"
+10000,20,1,pcy,100000,0.031592957995599136,791,192.0,30,238,True,plain,fraction,10,1000,2,0.002,True,"PCY (100,000 buckets)"
+10000,20,1,pcy,1000000,0.05539508300716989,791,129.0,30,134,True,plain,fraction,10,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+10000,20,2,pcy,1000000,0.05558329200721346,791,129.0,30,134,True,plain,fraction,10,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+10000,20,2,pcy,100000,0.0327044999867212,791,192.0,30,238,True,plain,fraction,10,1000,2,0.002,True,"PCY (100,000 buckets)"
+10000,20,2,pcy,10000,0.02886358299292624,791,696.0,30,1134,True,plain,fraction,10,1000,2,0.002,True,"PCY (10,000 buckets)"
+10000,20,2,pcy,1000,0.029578166984720156,791,1508.0,30,976,True,plain,fraction,10,1000,2,0.002,True,"PCY (1,000 buckets)"
+10000,20,2,apriori_optimized,,0.016188790992600843,791,1516.0,30,,True,plain,fraction,10,1000,2,0.002,True,A-Priori (optimized)
+10000,20,2,apriori,,0.15859791700495407,791,205120.0,30,,True,plain,fraction,10,1000,2,0.002,True,A-Priori (basic)
+10000,20,2,exhaustive,,0.025214249995769933,791,,,,True,plain,fraction,10,1000,2,0.002,True,Exhaustive
+10000,20,3,exhaustive,,0.02569416700862348,791,,,,True,plain,fraction,10,1000,2,0.002,True,Exhaustive
+10000,20,3,apriori,,0.16389208400505595,791,205120.0,30,,True,plain,fraction,10,1000,2,0.002,True,A-Priori (basic)
+10000,20,3,apriori_optimized,,0.016495374991791323,791,1516.0,30,,True,plain,fraction,10,1000,2,0.002,True,A-Priori (optimized)
+10000,20,3,pcy,1000,0.02948037500027567,791,1508.0,30,976,True,plain,fraction,10,1000,2,0.002,True,"PCY (1,000 buckets)"
+10000,20,3,pcy,10000,0.0287106670148205,791,696.0,30,1134,True,plain,fraction,10,1000,2,0.002,True,"PCY (10,000 buckets)"
+10000,20,3,pcy,100000,0.03128337502130307,791,192.0,30,238,True,plain,fraction,10,1000,2,0.002,True,"PCY (100,000 buckets)"
+10000,20,3,pcy,1000000,0.07152416699682362,791,129.0,30,134,True,plain,fraction,10,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+10000,50,1,exhaustive,,0.026812916999915615,83,,,,True,plain,fraction,10,1000,5,0.005,True,Exhaustive
+10000,50,1,apriori,,0.014574375003576279,83,3081.0,1,,True,plain,fraction,10,1000,5,0.005,True,A-Priori (basic)
+10000,50,1,apriori_optimized,,0.010873666004044935,83,139.0,1,,True,plain,fraction,10,1000,5,0.005,True,A-Priori (optimized)
+10000,50,1,pcy,1000,0.021998625015839934,83,120.0,1,717,True,plain,fraction,10,1000,5,0.005,True,"PCY (1,000 buckets)"
+10000,50,1,pcy,10000,0.020059375005075708,83,5.0,1,5,True,plain,fraction,10,1000,5,0.005,True,"PCY (10,000 buckets)"
+10000,50,1,pcy,100000,0.02302249998319894,83,3.0,1,3,True,plain,fraction,10,1000,5,0.005,True,"PCY (100,000 buckets)"
+10000,50,1,pcy,1000000,0.055881749984109774,83,3.0,1,3,True,plain,fraction,10,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+10000,50,2,pcy,1000000,0.04982895901775919,83,3.0,1,3,True,plain,fraction,10,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+10000,50,2,pcy,100000,0.026633000001311302,83,3.0,1,3,True,plain,fraction,10,1000,5,0.005,True,"PCY (100,000 buckets)"
+10000,50,2,pcy,10000,0.021767666999949142,83,5.0,1,5,True,plain,fraction,10,1000,5,0.005,True,"PCY (10,000 buckets)"
+10000,50,2,pcy,1000,0.02062833300442435,83,120.0,1,717,True,plain,fraction,10,1000,5,0.005,True,"PCY (1,000 buckets)"
+10000,50,2,apriori_optimized,,0.01094358300906606,83,139.0,1,,True,plain,fraction,10,1000,5,0.005,True,A-Priori (optimized)
+10000,50,2,apriori,,0.014297415997134522,83,3081.0,1,,True,plain,fraction,10,1000,5,0.005,True,A-Priori (basic)
+10000,50,2,exhaustive,,0.026578791992506012,83,,,,True,plain,fraction,10,1000,5,0.005,True,Exhaustive
+10000,50,3,exhaustive,,0.028141707996837795,83,,,,True,plain,fraction,10,1000,5,0.005,True,Exhaustive
+10000,50,3,apriori,,0.014904542011208832,83,3081.0,1,,True,plain,fraction,10,1000,5,0.005,True,A-Priori (basic)
+10000,50,3,apriori_optimized,,0.012476958014303818,83,139.0,1,,True,plain,fraction,10,1000,5,0.005,True,A-Priori (optimized)
+10000,50,3,pcy,1000,0.02187974998378195,83,120.0,1,717,True,plain,fraction,10,1000,5,0.005,True,"PCY (1,000 buckets)"
+10000,50,3,pcy,10000,0.021957207995001227,83,5.0,1,5,True,plain,fraction,10,1000,5,0.005,True,"PCY (10,000 buckets)"
+10000,50,3,pcy,100000,0.024269333021948114,83,3.0,1,3,True,plain,fraction,10,1000,5,0.005,True,"PCY (100,000 buckets)"
+10000,50,3,pcy,1000000,0.050843709002947435,83,3.0,1,3,True,plain,fraction,10,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+50000,100,1,exhaustive,,0.1267934170027729,791,,,,True,plain,fraction,50,1000,2,0.002,True,Exhaustive
+50000,100,1,apriori,,0.22777654198580422,791,205120.0,30,,True,plain,fraction,50,1000,2,0.002,True,A-Priori (basic)
+50000,100,1,apriori_optimized,,0.07797704101540148,791,1516.0,30,,True,plain,fraction,50,1000,2,0.002,True,A-Priori (optimized)
+50000,100,1,pcy,1000,0.14326145901577547,791,1508.0,30,976,True,plain,fraction,50,1000,2,0.002,True,"PCY (1,000 buckets)"
+50000,100,1,pcy,10000,0.13816466598655097,791,696.0,30,1134,True,plain,fraction,50,1000,2,0.002,True,"PCY (10,000 buckets)"
+50000,100,1,pcy,100000,0.13993554198532365,791,192.0,30,238,True,plain,fraction,50,1000,2,0.002,True,"PCY (100,000 buckets)"
+50000,100,1,pcy,1000000,0.16280650001135655,791,129.0,30,134,True,plain,fraction,50,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+50000,100,2,pcy,1000000,0.16906749998452142,791,129.0,30,134,True,plain,fraction,50,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+50000,100,2,pcy,100000,0.14147341702482663,791,192.0,30,238,True,plain,fraction,50,1000,2,0.002,True,"PCY (100,000 buckets)"
+50000,100,2,pcy,10000,0.1367639579984825,791,696.0,30,1134,True,plain,fraction,50,1000,2,0.002,True,"PCY (10,000 buckets)"
+50000,100,2,pcy,1000,0.14369187501142733,791,1508.0,30,976,True,plain,fraction,50,1000,2,0.002,True,"PCY (1,000 buckets)"
+50000,100,2,apriori_optimized,,0.08072804097901098,791,1516.0,30,,True,plain,fraction,50,1000,2,0.002,True,A-Priori (optimized)
+50000,100,2,apriori,,0.22250095798517577,791,205120.0,30,,True,plain,fraction,50,1000,2,0.002,True,A-Priori (basic)
+50000,100,2,exhaustive,,0.12071575000300072,791,,,,True,plain,fraction,50,1000,2,0.002,True,Exhaustive
+50000,100,3,exhaustive,,0.12711387500166893,791,,,,True,plain,fraction,50,1000,2,0.002,True,Exhaustive
+50000,100,3,apriori,,0.21643462500651367,791,205120.0,30,,True,plain,fraction,50,1000,2,0.002,True,A-Priori (basic)
+50000,100,3,apriori_optimized,,0.07990154199069366,791,1516.0,30,,True,plain,fraction,50,1000,2,0.002,True,A-Priori (optimized)
+50000,100,3,pcy,1000,0.14981195799191482,791,1508.0,30,976,True,plain,fraction,50,1000,2,0.002,True,"PCY (1,000 buckets)"
+50000,100,3,pcy,10000,0.14282666699727997,791,696.0,30,1134,True,plain,fraction,50,1000,2,0.002,True,"PCY (10,000 buckets)"
+50000,100,3,pcy,100000,0.14241108400165103,791,192.0,30,238,True,plain,fraction,50,1000,2,0.002,True,"PCY (100,000 buckets)"
+50000,100,3,pcy,1000000,0.16166233300464228,791,129.0,30,134,True,plain,fraction,50,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+50000,250,1,exhaustive,,0.12003374999039806,83,,,,True,plain,fraction,50,1000,5,0.005,True,Exhaustive
+50000,250,1,apriori,,0.06234087501070462,83,3081.0,1,,True,plain,fraction,50,1000,5,0.005,True,A-Priori (basic)
+50000,250,1,apriori_optimized,,0.053930708003463224,83,139.0,1,,True,plain,fraction,50,1000,5,0.005,True,A-Priori (optimized)
+50000,250,1,pcy,1000,0.10274958299123682,83,120.0,1,717,True,plain,fraction,50,1000,5,0.005,True,"PCY (1,000 buckets)"
+50000,250,1,pcy,10000,0.10680033298558556,83,5.0,1,5,True,plain,fraction,50,1000,5,0.005,True,"PCY (10,000 buckets)"
+50000,250,1,pcy,100000,0.10265179199632257,83,3.0,1,3,True,plain,fraction,50,1000,5,0.005,True,"PCY (100,000 buckets)"
+50000,250,1,pcy,1000000,0.13062458302010782,83,3.0,1,3,True,plain,fraction,50,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+50000,250,2,pcy,1000000,0.13868099998217076,83,3.0,1,3,True,plain,fraction,50,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+50000,250,2,pcy,100000,0.10964533299556933,83,3.0,1,3,True,plain,fraction,50,1000,5,0.005,True,"PCY (100,000 buckets)"
+50000,250,2,pcy,10000,0.10578333301236853,83,5.0,1,5,True,plain,fraction,50,1000,5,0.005,True,"PCY (10,000 buckets)"
+50000,250,2,pcy,1000,0.10435933398548514,83,120.0,1,717,True,plain,fraction,50,1000,5,0.005,True,"PCY (1,000 buckets)"
+50000,250,2,apriori_optimized,,0.053316500008804724,83,139.0,1,,True,plain,fraction,50,1000,5,0.005,True,A-Priori (optimized)
+50000,250,2,apriori,,0.0634286249987781,83,3081.0,1,,True,plain,fraction,50,1000,5,0.005,True,A-Priori (basic)
+50000,250,2,exhaustive,,0.12291662499774247,83,,,,True,plain,fraction,50,1000,5,0.005,True,Exhaustive
+50000,250,3,exhaustive,,0.12673708301736042,83,,,,True,plain,fraction,50,1000,5,0.005,True,Exhaustive
+50000,250,3,apriori,,0.06505620799725875,83,3081.0,1,,True,plain,fraction,50,1000,5,0.005,True,A-Priori (basic)
+50000,250,3,apriori_optimized,,0.05345820900402032,83,139.0,1,,True,plain,fraction,50,1000,5,0.005,True,A-Priori (optimized)
+50000,250,3,pcy,1000,0.10509908400126733,83,120.0,1,717,True,plain,fraction,50,1000,5,0.005,True,"PCY (1,000 buckets)"
+50000,250,3,pcy,10000,0.10335504199611023,83,5.0,1,5,True,plain,fraction,50,1000,5,0.005,True,"PCY (10,000 buckets)"
+50000,250,3,pcy,100000,0.10851512500084937,83,3.0,1,3,True,plain,fraction,50,1000,5,0.005,True,"PCY (100,000 buckets)"
+50000,250,3,pcy,1000000,0.14067504199920222,83,3.0,1,3,True,plain,fraction,50,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+100000,200,1,exhaustive,,0.2365395420056302,791,,,,True,plain,fraction,100,1000,2,0.002,True,Exhaustive
+100000,200,1,apriori,,0.3111865409882739,791,205120.0,30,,True,plain,fraction,100,1000,2,0.002,True,A-Priori (basic)
+100000,200,1,apriori_optimized,,0.16022350001730956,791,1516.0,30,,True,plain,fraction,100,1000,2,0.002,True,A-Priori (optimized)
+100000,200,1,pcy,1000,0.2985517090128269,791,1508.0,30,976,True,plain,fraction,100,1000,2,0.002,True,"PCY (1,000 buckets)"
+100000,200,1,pcy,10000,0.28056916600326076,791,696.0,30,1134,True,plain,fraction,100,1000,2,0.002,True,"PCY (10,000 buckets)"
+100000,200,1,pcy,100000,0.2737972500035539,791,192.0,30,238,True,plain,fraction,100,1000,2,0.002,True,"PCY (100,000 buckets)"
+100000,200,1,pcy,1000000,0.3002974590053782,791,129.0,30,134,True,plain,fraction,100,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+100000,200,2,pcy,1000000,0.30081441698712297,791,129.0,30,134,True,plain,fraction,100,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+100000,200,2,pcy,100000,0.2688537079957314,791,192.0,30,238,True,plain,fraction,100,1000,2,0.002,True,"PCY (100,000 buckets)"
+100000,200,2,pcy,10000,0.27438870901823975,791,696.0,30,1134,True,plain,fraction,100,1000,2,0.002,True,"PCY (10,000 buckets)"
+100000,200,2,pcy,1000,0.28361954100546427,791,1508.0,30,976,True,plain,fraction,100,1000,2,0.002,True,"PCY (1,000 buckets)"
+100000,200,2,apriori_optimized,,0.1612386249762494,791,1516.0,30,,True,plain,fraction,100,1000,2,0.002,True,A-Priori (optimized)
+100000,200,2,apriori,,0.3060022090212442,791,205120.0,30,,True,plain,fraction,100,1000,2,0.002,True,A-Priori (basic)
+100000,200,2,exhaustive,,0.2455400000035297,791,,,,True,plain,fraction,100,1000,2,0.002,True,Exhaustive
+100000,200,3,exhaustive,,0.24870745799853466,791,,,,True,plain,fraction,100,1000,2,0.002,True,Exhaustive
+100000,200,3,apriori,,0.34409545798553154,791,205120.0,30,,True,plain,fraction,100,1000,2,0.002,True,A-Priori (basic)
+100000,200,3,apriori_optimized,,0.16141454197349958,791,1516.0,30,,True,plain,fraction,100,1000,2,0.002,True,A-Priori (optimized)
+100000,200,3,pcy,1000,0.30083870800444856,791,1508.0,30,976,True,plain,fraction,100,1000,2,0.002,True,"PCY (1,000 buckets)"
+100000,200,3,pcy,10000,0.2761731249920558,791,696.0,30,1134,True,plain,fraction,100,1000,2,0.002,True,"PCY (10,000 buckets)"
+100000,200,3,pcy,100000,0.2738984169845935,791,192.0,30,238,True,plain,fraction,100,1000,2,0.002,True,"PCY (100,000 buckets)"
+100000,200,3,pcy,1000000,0.3085006669862196,791,129.0,30,134,True,plain,fraction,100,1000,2,0.002,True,"PCY (1,000,000 buckets)"
+100000,500,1,exhaustive,,0.2545840840029996,83,,,,True,plain,fraction,100,1000,5,0.005,True,Exhaustive
+100000,500,1,apriori,,0.1300369169912301,83,3081.0,1,,True,plain,fraction,100,1000,5,0.005,True,A-Priori (basic)
+100000,500,1,apriori_optimized,,0.10950008299550973,83,139.0,1,,True,plain,fraction,100,1000,5,0.005,True,A-Priori (optimized)
+100000,500,1,pcy,1000,0.22763187499367632,83,120.0,1,717,True,plain,fraction,100,1000,5,0.005,True,"PCY (1,000 buckets)"
+100000,500,1,pcy,10000,0.20470883397501893,83,5.0,1,5,True,plain,fraction,100,1000,5,0.005,True,"PCY (10,000 buckets)"
+100000,500,1,pcy,100000,0.20443495802464895,83,3.0,1,3,True,plain,fraction,100,1000,5,0.005,True,"PCY (100,000 buckets)"
+100000,500,1,pcy,1000000,0.23932737499126233,83,3.0,1,3,True,plain,fraction,100,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+100000,500,2,pcy,1000000,0.24029716599034145,83,3.0,1,3,True,plain,fraction,100,1000,5,0.005,True,"PCY (1,000,000 buckets)"
+100000,500,2,pcy,100000,0.22257062498829328,83,3.0,1,3,True,plain,fraction,100,1000,5,0.005,True,"PCY (100,000 buckets)"
+100000,500,2,pcy,10000,0.2016111249977257,83,5.0,1,5,True,plain,fraction,100,1000,5,0.005,True,"PCY (10,000 buckets)"
+100000,500,2,pcy,1000,0.2267934159899596,83,120.0,1,717,True,plain,fraction,100,1000,5,0.005,True,"PCY (1,000 buckets)"
+100000,500,2,apriori_optimized,,0.11280916599207558,83,139.0,1,,True,plain,fraction,100,1000,5,0.005,True,A-Priori (optimized)
+100000,500,2,apriori,,0.12886724999407306,83,3081.0,1,,True,plain,fraction,100,1000,5,0.005,True,A-Priori (basic)
+100000,500,2,exhaustive,,0.2605432500131428,83,,,,True,plain,fraction,100,1000,5,0.005,True,Exhaustive
+100000,500,3,exhaustive,,0.24948212498566136,83,,,,True,plain,fraction,100,1000,5,0.005,True,Exhaustive
+100000,500,3,apriori,,0.12191308400360867,83,3081.0,1,,True,plain,fraction,100,1000,5,0.005,True,A-Priori (basic)
+100000,500,3,apriori_optimized,,0.10698687500553206,83,139.0,1,,True,plain,fraction,100,1000,5,0.005,True,A-Priori (optimized)
+100000,500,3,pcy,1000,0.21327274999930523,83,120.0,1,717,True,plain,fraction,100,1000,5,0.005,True,"PCY (1,000 buckets)"
+100000,500,3,pcy,10000,0.20278420799877495,83,5.0,1,5,True,plain,fraction,100,1000,5,0.005,True,"PCY (10,000 buckets)"
+100000,500,3,pcy,100000,0.20744545897468925,83,3.0,1,3,True,plain,fraction,100,1000,5,0.005,True,"PCY (100,000 buckets)"
+100000,500,3,pcy,1000000,0.25086466601351276,83,3.0,1,3,True,plain,fraction,100,1000,5,0.005,True,"PCY (1,000,000 buckets)"

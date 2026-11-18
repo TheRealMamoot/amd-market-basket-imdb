@@ -1,0 +1,48 @@
+{
+  "commit": "b94e7b5",
+  "python": "3.13.4",
+  "machine": "Apple M2, 8 cores, 8 GB RAM",
+  "os": "macOS 26.5.1",
+  "notebook_runtime_s": 115,
+  "settings": {
+    "EXAMPLE_SUPPORT": 2,
+    "EXAMPLE_BUCKETS": 100000,
+    "SUPPORTS": [
+      1,
+      2,
+      3,
+      5,
+      10
+    ],
+    "REPEATS": 3,
+    "BUCKETS": [
+      1000,
+      10000,
+      100000,
+      1000000
+    ],
+    "COPY_COUNTS": [
+      1,
+      10,
+      50,
+      100
+    ],
+    "SCALING_SUPPORTS": [
+      2,
+      5
+    ],
+    "BASIC_COPY_COUNTS": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "runs": {
+    "original": 105,
+    "plain": 168,
+    "relabelled": 144,
+    "relabelled_basic": 10
+  }
+}

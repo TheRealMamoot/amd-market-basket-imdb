@@ -1,0 +1,10 @@
+augmentation,plain,plain,relabelled,relabelled
+support,2,5,2,5
+method,,,,
+Exhaustive,0.98,0.97,1.09,1.06
+A-Priori (basic),0.26,0.94,2.12,
+A-Priori (optimized),0.99,1.0,1.05,1.0
+"PCY (1,000 buckets)",1.0,1.01,1.08,1.05
+"PCY (10,000 buckets)",0.98,0.97,1.06,1.05
+"PCY (100,000 buckets)",0.94,0.93,1.02,1.06
+"PCY (1,000,000 buckets)",0.72,0.67,0.85,0.76
